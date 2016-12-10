@@ -1,0 +1,22 @@
+{
+  "name": "page_basket",
+  "version": "1.0.0",
+  "description": "Webpage development kit -- AMD module based boilerplate",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "DEBUG=* nodemon ./server.js",
+    "watch": "DEBUG=* nodemon -e js,sjs,css  ./server.js",
+    "build": "gulp watch"
+  },
+  "repository": {
+    "url": "git@github.com:venkatb4u/page_basket.git",
+    "type": "git"
+  },
+  "author": "Venkat <venkat.crescentian@gmail.coml>",
+  "license": "MIT",
+  "dependencies": {
+    "nodemon": "^1.11.0",
+    "express": "^4.14.0"
+  }
+}
