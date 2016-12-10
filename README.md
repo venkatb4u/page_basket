@@ -9,6 +9,10 @@ This is to achieve maintaining a generic codebase throughout the development, fa
 ## Benefits?
 
 * `Separation of concern` is the key that it holds throughout.
-* Maintainability.
+* Maintainability -- stick to the flow and I tell you, you'll thank me later for the time you'd have saved in future.
 * `Microservice` way of codebase structuring. (Yes, definitely not the `monolithic` pattern)
 * Loading assets on demand -- reduced network loads -- quick page rendering. (Yes, AMD'ish way is also available)
+
+## Usage
+
+Just clone the repo and start developing the pages on top of this template, conforming to its practices/methodologies.
