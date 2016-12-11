@@ -2,6 +2,9 @@
 
 A scalable web boilerplate for anyone who's in need to kickstart developing webpages using html, css and javascript. 
 
+## When to use ?
+If you're to develop a set of static web pages (html,css & js), and to quick-start the dev process in less than a minute time.
+
 ## Why this?
 
 This is to achieve maintaining a generic codebase throughout the development, facilitating reusability of components (be it styles or javascript based).
