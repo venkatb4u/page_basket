@@ -1,4 +1,6 @@
 var express = require('express');
-var app = express();
-app.use('/', express.static(__dirname)); // ← adjust
-app.listen(3000, function() { console.log('listening'); });
+var app = express(),
+	port = 3000,
+	netOutputFolder = '/public';
+app.use('/', express.static(__dirname + netOutputFolder)); 
+app.listen(port, function() { console.log('App is running through - ', port); });
