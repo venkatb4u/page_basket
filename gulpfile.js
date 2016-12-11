@@ -81,7 +81,7 @@
 	        // }));
 	});
 
-	gulp.task('default', ['moveHtml', 'sass', 'uglify', 'imagemin', 'stats']);
+	gulp.task('default', ['clean', 'moveHtml', 'sass', 'uglify', 'imagemin', 'stats']);
 
 	gulp.task('watch', ['default'], function() {
 
