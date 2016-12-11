@@ -1,0 +1,11 @@
+
+main.home {
+	padding: 20px;
+	width: 500px;
+	height: 500px;
+	border: 1px solid red;
+	background: url(./img/first_bg.png) no-repeat;
+
+	/* partial style of page 1 */
+	@import "first/partial1";
+}

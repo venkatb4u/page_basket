@@ -5,6 +5,9 @@
 	// Gulp
 	var gulp = require('gulp');
 
+	// notify
+	var notify = require('gulp-notify');
+
 	// delete
 	var del = require('del');
 
@@ -33,7 +36,7 @@
 
 	// Copies markups
 	gulp.task('moveHtml',function(){
-	  return gulp.src([src + '/views'],  {base: src + '/views'}) 
+	  return gulp.src([src + '/views/**/*.html'],  {base: src + '/views'}) 
 	  			 .pipe(gulp.dest(dest));
 	});
 
@@ -68,9 +71,14 @@
 
 	// Stats and Things
 	gulp.task('stats', function () {
-		gulp.src(dest) // net total set of files
-		.pipe(size())
-		.pipe(gulp.dest(dest));
+ 		var s = size();
+	    return gulp.src([src + '/style/**/*.scss', src + '/js/**/*.js']) // net total size of css/js files
+	        .pipe(s)
+	        .pipe(gulp.dest(dest));
+	        // .pipe(notify({
+	        //     onLast: true,
+	        //     message: () => `Total size ${s.prettySize}`
+	        // }));
 	});
 
 	gulp.task('default', ['moveHtml', 'sass', 'uglify', 'imagemin', 'stats']);
