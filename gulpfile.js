@@ -1,8 +1,12 @@
-// Page_Basket //
+// Page_Basket
+ //
 //////////////////
 
 	// Gulp
 	var gulp = require('gulp');
+
+	// delete
+	var del = require('del');
 
 	// Sass/CSS stuff
 	var sass = require('gulp-sass');
@@ -22,6 +26,16 @@
 	var src = "./assets";
 	var dest = "./public";
 
+	// Clean
+	gulp.task('clean', function(done) {
+		del(dest, done);
+	});
+
+	// Copies markups
+	gulp.task('moveHtml',function(){
+	  return gulp.src([src + '/views'],  {base: src + '/views'}) 
+	  			 .pipe(gulp.dest(dest));
+	});
 
 	// compile all your Sass
 	gulp.task('sass', function (){
@@ -46,7 +60,6 @@
 	});
 
 	// Images
-		
 	gulp.task('imagemin', function () {
 		gulp.src(src + '/img/**/*')
 		.pipe(imagemin())
@@ -60,14 +73,16 @@
 		.pipe(gulp.dest(dest));
 	});
 
-	gulp.task('default', ['sass', 'uglify', 'imagemin', 'stats']);
+	gulp.task('default', ['moveHtml', 'sass', 'uglify', 'imagemin', 'stats']);
 
 	gulp.task('watch', ['default'], function() {
 
+		// watch for markup changes
+		gulp.watch(src + "/views/**/*.html", ["moveHtml"]);
 		// watch me getting Sassy
 		gulp.watch(src + "/style/**/*.scss", ["sass"]);
 		// make my JavaScript ugly
-		gulp.watch(src + "/smilePlease.js", ["uglify"]);
+		gulp.watch(src + "/js/**/*.js", ["uglify"]);
 		// images
 		gulp.watch(src + "/img/**/*", ["imagemin"]);
 	});
