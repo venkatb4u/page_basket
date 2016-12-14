@@ -1,5 +1,4 @@
-// Page_Basket
- //
+// Page_Basket  //
 //////////////////
 
 	// Gulp
@@ -40,9 +39,9 @@
 	  			 .pipe(gulp.dest(dest));
 	});
 
-	// compile all your Sass
-	gulp.task('sass', function (){
-		gulp.src([src + '/style/**/*.scss', '!' + src + '/style/_variables.scss'])
+	// compile all your app level Sass
+	gulp.task('appCss', function (){
+		gulp.src([src + '/style/**/*.scss', '!' + src + '/style/base.scss'])
 			.pipe(sass({
 				includePaths: [src + '/style'],
 				outputStyle: 'expanded'
@@ -50,6 +49,21 @@
 			.pipe(prefix(
 				"last 1 version", "> 1%", "ie 8", "ie 7"
 				))
+			// .pipe(gulp.dest(dest + '/css'))
+			// .pipe(minifycss())
+			.pipe(gulp.dest(dest + '/css'));
+	});
+
+	// CSS vendor processing
+	gulp.task('baseCss', function (){
+		gulp.src([src + '/style/base.scss'])
+			// .pipe(sass({
+			// 	includePaths: [src + '/style'],
+			// 	outputStyle: 'expanded'
+			// }))
+			// .pipe(prefix(
+			// 	"last 1 version", "> 1%", "ie 8", "ie 7"
+			// 	))
 			// .pipe(gulp.dest(dest + '/css'))
 			// .pipe(minifycss())
 			.pipe(gulp.dest(dest + '/css'));
@@ -81,14 +95,14 @@
 	        // }));
 	});
 
-	gulp.task('default', ['clean', 'moveHtml', 'sass', 'uglify', 'imagemin', 'stats']);
+	gulp.task('default', ['moveHtml', 'baseCss', 'appCss', 'uglify', 'imagemin', 'stats']);
 
-	gulp.task('watch', ['default'], function() {
+	gulp.task('watch', [], function() {
 
 		// watch for markup changes
 		gulp.watch(src + "/views/**/*.html", ["moveHtml"]);
 		// watch me getting Sassy
-		gulp.watch(src + "/style/**/*.scss", ["sass"]);
+		gulp.watch(src + "/style/**/*.scss", ["appCss"]); // currently watching only app-level css. 
 		// make my JavaScript ugly
 		gulp.watch(src + "/js/**/*.js", ["uglify"]);
 		// images
