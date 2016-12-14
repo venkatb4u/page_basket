@@ -69,9 +69,9 @@
 			.pipe(gulp.dest(dest + '/css'));
 	});
 
-	// Uglify JS
-	gulp.task('uglify', function(){
-		gulp.src(src + '/js/**/*.js')
+	// Processign app level JS
+	gulp.task('appJs', function(){
+		gulp.src([src + '/js/**/*.js', '!' + src + '/js/vendors/**/*.js']) // all except vendor scripts
 			.pipe(uglify())
 			.pipe(gulp.dest(dest + '/js'));
 	});
@@ -95,7 +95,7 @@
 	        // }));
 	});
 
-	gulp.task('default', ['moveHtml', 'baseCss', 'appCss', 'uglify', 'imagemin', 'stats']);
+	gulp.task('default', ['moveHtml', 'baseCss', 'appCss', 'appJs', 'imagemin', 'stats']);
 
 	gulp.task('watch', [], function() {
 
@@ -104,7 +104,7 @@
 		// watch me getting Sassy
 		gulp.watch(src + "/style/**/*.scss", ["appCss"]); // currently watching only app-level css. 
 		// make my JavaScript ugly
-		gulp.watch(src + "/js/**/*.js", ["uglify"]);
+		gulp.watch(src + "/js/**/*.js", ["appJs"]);
 		// images
 		gulp.watch(src + "/img/**/*", ["imagemin"]);
 	});
