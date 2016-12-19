@@ -26,8 +26,10 @@
 
         <!-- Add your site or application content here -->
         <main class="home">
-            <h1> Hello World! </h1>
+            {{> header}}
             <aside> Aside test </aside>
+            <p>Hello {{firstName}}</p>
+            <p>HELLO! Usage of HbsHelpers 'capitals' - {{capitals firstName}}</p>
         </main>
 
         <!-- Bootstrap JS -->

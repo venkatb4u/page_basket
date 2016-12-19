@@ -7,6 +7,9 @@
 	// notify
 	var notify = require('gulp-notify');
 
+	// HbsAll
+	var hbsAll = require('gulp-handlebars-all');
+
 	// delete
 	var del = require('del');
 
@@ -23,6 +26,7 @@
 
 	// Stats and Things
 	var size = require('gulp-size');
+	var config = require('./config/fd');
 
 	// src/dest path configs
 	var src = "./assets";
@@ -33,10 +37,22 @@
 		del(dest, done);
 	});
 
-	// Copies markups
-	gulp.task('moveHtml',function(){
-	  return gulp.src([src + '/views/**/*.html'],  {base: src + '/views'}) 
-	  			 .pipe(gulp.dest(dest));
+
+	// Compiles hbs templates
+	gulp.task('appHtml', function() {
+	   gulp.src([src + '/views/*.html', '!' + src + '/views/partials/**/*.hbs'])
+		  	.pipe(hbsAll('html', {
+			    context: {firstName: 'venkat'},
+			 
+			    partials: [src + '/views/partials/**/*.hbs'],
+			 
+			    helpers: {
+			      capitals : function(str) {
+			        return str.toUpperCase();
+			      }
+			    }
+			  }))
+		  	.pipe(gulp.dest(dest + '/views'));
 	});
 
 	// compile all your app level Sass
@@ -69,9 +85,9 @@
 			.pipe(gulp.dest(dest + '/css'));
 	});
 
-	// Processign app level JS
+	// Processing app level JS
 	gulp.task('appJs', function(){
-		gulp.src([src + '/js/**/*.js', '!' + src + '/js/vendors/**/*.js']) // all except vendor scripts
+		gulp.src([src + '/js/**/*.js', '!' + src + '/js/vendors/**/*.js'], {overwrite: true}) // all except vendor scripts
 			.pipe(uglify())
 			.pipe(gulp.dest(dest + '/js'));
 	});
@@ -95,12 +111,12 @@
 	        // }));
 	});
 
-	gulp.task('default', ['moveHtml', 'baseCss', 'appCss', 'appJs', 'imagemin', 'stats']);
+	gulp.task('default', ['appHtml', 'baseCss', 'appCss', 'appJs', 'imagemin', 'stats']);
 
 	gulp.task('watch', [], function() {
 
 		// watch for markup changes
-		gulp.watch(src + "/views/**/*.html", ["moveHtml"]);
+		gulp.watch(src + "/views/**/*.html", ["appHtml"]);
 		// watch me getting Sassy
 		gulp.watch(src + "/style/**/*.scss", ["appCss"]); // currently watching only app-level css. 
 		// make my JavaScript ugly
