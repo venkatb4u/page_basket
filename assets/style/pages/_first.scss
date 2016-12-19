@@ -3,8 +3,9 @@ main.home {
 	padding: 20px;
 	width: 500px;
 	height: 500px;
+	font-size: 16px;
 	border: 1px solid red;
-	background: url(./img/first_bg.png) no-repeat;
+	background: lightblue;
 
 	/* partial style of page 1 */
 	@import "first/partial1";
