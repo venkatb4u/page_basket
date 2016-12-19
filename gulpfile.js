@@ -3,6 +3,10 @@
 
 // Gulp
 var gulp = require('gulp');
+// SourceMap
+var sourcemaps = require('gulp-sourcemaps');
+// single-threading the tasks
+var runSequence = require('run-sequence');
 
 // notify
 var notify = require('gulp-notify');
@@ -61,6 +65,7 @@ gulp.task('appHtml', function() {
 // compile all your app level Sass
 gulp.task('appCss', function (){
 	gulp.src([src + '/style/**/*.scss', '!' + src + '/style/base.scss'])
+		.pipe(sourcemaps.init())
 		.pipe(sass({
 			includePaths: [src + '/style'],
 			outputStyle: 'expanded'
@@ -68,6 +73,7 @@ gulp.task('appCss', function (){
 		.pipe(prefix(
 			"last 1 version", "> 1%", "ie 8", "ie 7"
 			))
+		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(dest + '/css'))
 		.pipe(minifycss())
 		.pipe(gulp.dest(dest + '/css/min'));
@@ -87,8 +93,10 @@ gulp.task('baseCss', function (){
 // Processing app level JS
 gulp.task('appJs', function(){
 	return gulp.src([src + '/js/**/*.js', '!' + src + '/js/vendors/**/*.js'], {overwrite: true}) // all except vendor scripts
+			.pipe(sourcemaps.init())
 			.pipe(gulp.dest(dest + '/js'))
 			.pipe(uglify())
+			.pipe(sourcemaps.write())
 			.pipe(gulp.dest(dest + '/js/min'));
 });
 
@@ -116,10 +124,14 @@ gulp.task('stats', function () {
         }));
 });
 
-gulp.task('default', ['appHtml', 'baseCss', 'appCss', 'appJs','baseJs', 'imagemin', 'stats']);
+gulp.task('default', ['appHtml', 'baseCss', 'appCss', 'appJs','baseJs', 'imagemin'], function(callback) {
+	console.log('Computing total size of page resources:');
+	runSequence('stats', callback);
+});
 
 gulp.task('watch', ['default'], function() { // this does 'default' set once, and then begins to watch for changes
 
+	console.log('WATCHING for changes:');
 	// watch for markup changes
 	gulp.watch(src + "/views/**/*.html", ["appHtml"]);
 	// watch for style changes
