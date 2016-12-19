@@ -2,7 +2,8 @@
 	padding: 20px 0;
 	border-bottom: 1px solid;
 	font-size: 15px;
-	background: url(header/ui/bg.png) no-repeat;
+	/* for accessing any assets, img/fonts, use default relative path "../" */
+	background: url(../img/header_bg.png) no-repeat;
 	& > nav {
 		float: right;
 		margin: 0;

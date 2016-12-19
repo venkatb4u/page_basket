@@ -1,0 +1,30 @@
+progress { 
+  vertical-align: text-top;
+}
+
+progress[value] {
+	width: 100%;
+	background: #33aa49;
+	border: none;
+	height: 0.4rem;
+	
+	background-image: url(../img/activity.png); /* use direct relative path - "../", as this anyways is going to be stitched and deployed in root level */
+	background-repeat: repeat;
+	background-size: auto 100%;
+	animation: 0.5s move infinite steps(15);
+}
+
+progress[value]::-webkit-progress-bar {
+  background: #fff;
+  border-radius: 0;
+}
+
+progress[value]::-moz-progress-bar {
+  background: #fff;
+  border-radius: 0;
+}
+
+@keyframes move {
+  from { background-position: 0 0; }
+  to   { background-position: 1rem 0; }
+}
