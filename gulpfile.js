@@ -79,9 +79,6 @@
 			.pipe(sass({
 				includePaths: [src + '/style']
 			}))
-			// .pipe(prefix(
-			// 	"last 1 version", "> 1%", "ie 8", "ie 7"
-			// 	))
 			.pipe(gulp.dest(dest + '/css'))
 			.pipe(minifycss())
 			.pipe(gulp.dest(dest + '/css/min'));
@@ -90,10 +87,17 @@
 	// Processing app level JS
 	gulp.task('appJs', function(){
 		return gulp.src([src + '/js/**/*.js', '!' + src + '/js/vendors/**/*.js'], {overwrite: true}) // all except vendor scripts
+				.pipe(gulp.dest(dest + '/js'))
 				.pipe(uglify())
-				.pipe(gulp.dest(dest + '/js'));
+				.pipe(gulp.dest(dest + '/js/min'));
 	});
 
+	// Vendor JS
+	gulp.task('baseJs', function(){
+		return gulp.src([src + '/js/vendors/**/*.js'], {overwrite: true}) // all vendor scripts
+				.pipe(gulp.dest(dest + '/js/min/vendors'))
+				.pipe(gulp.dest(dest + '/js/vendors'));
+	});
 	// Images
 	gulp.task('imagemin', function () {
 		return gulp.src(src + '/img/**/*')
