@@ -16,6 +16,6 @@ This is to achieve maintaining a generic codebase throughout the development, fa
 * `Microservice` way of codebase structuring. (Yes, definitely not the `monolithic` pattern)
 * Loading assets on demand -- reduced network loads -- quick page rendering. (Yes, AMD'ish way is also available)
 
-## Usage
+## Usage [yet to draft in detail]
 
 Just clone the repo and start developing the pages on top of this template, conforming to its practices/methodologies.
