@@ -10,6 +10,7 @@ main.home {
 	/* partial style of page 1 */
 	@import "first/partial1";
 
+	/* RWD styles for Tablets */
 	@include stylesFor('tablet') {
 		aside {
 			width: 600px;
