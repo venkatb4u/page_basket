@@ -1,0 +1,35 @@
+/*********************
+      VARIABLES
+*********************/
+
+$red: #cc4e46;
+$pale: #ede6dc;
+$lightpale: #f2ece5;
+$paleborder: #eee7dd;
+$palefootertext: #d2d0c2;
+$modulebackground: #d0cdc4;
+$dark: #333; 
+
+
+/*********************
+        MIXINS
+*********************/
+
+ @mixin stylesFor ($point) {
+   @if $point == desktop {
+     @media (min-width: 70em) { @content ; }
+  }
+   @else if $point == laptop {
+     @media (min-width: 64em) { @content ; }
+  }
+    @else if $point == tablet {
+     @media (min-width: 50em) { @content ; }
+  }
+   @else if $point == phablet {
+     @media (min-width: 37.5em)  { @content ; }
+  }
+  @else if $point == mobileonly {
+     @media (max-width: 37.5em)  { @content ; }
+
+  }
+}

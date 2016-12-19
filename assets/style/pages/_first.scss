@@ -2,11 +2,20 @@
 main.home {
 	padding: 20px;
 	margin: 30px auto;
-	width: 500px;
+	width: 640px;
 	font-size: 16px;
 	border: 1px solid red;
 	background: snow;
 
 	/* partial style of page 1 */
 	@import "first/partial1";
+
+	@include stylesFor('tablet') {
+		aside {
+			width: 600px;
+			height: 600px;
+			border: 5px dotted blue;
+		}
+	}
+	
 }
