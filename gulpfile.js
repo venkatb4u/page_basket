@@ -38,6 +38,9 @@
 	});
 
 
+	// TASKS 
+	//======
+
 	// Compiles hbs templates
 	gulp.task('appHtml', function() {
 	   gulp.src([src + '/views/*.html', '!' + src + '/views/partials/**/*.hbs'])
@@ -65,38 +68,37 @@
 			.pipe(prefix(
 				"last 1 version", "> 1%", "ie 8", "ie 7"
 				))
-			// .pipe(gulp.dest(dest + '/css'))
-			// .pipe(minifycss())
-			.pipe(gulp.dest(dest + '/css'));
+			.pipe(gulp.dest(dest + '/css'))
+			.pipe(minifycss())
+			.pipe(gulp.dest(dest + '/css/min'));
 	});
 
 	// CSS vendor processing
 	gulp.task('baseCss', function (){
-		gulp.src([src + '/style/base.scss'])
-			// .pipe(sass({
-			// 	includePaths: [src + '/style'],
-			// 	outputStyle: 'expanded'
-			// }))
+		gulp.src([src + '/style/base.scss'], {overwrite: true})
+			.pipe(sass({
+				includePaths: [src + '/style']
+			}))
 			// .pipe(prefix(
 			// 	"last 1 version", "> 1%", "ie 8", "ie 7"
 			// 	))
-			// .pipe(gulp.dest(dest + '/css'))
-			// .pipe(minifycss())
-			.pipe(gulp.dest(dest + '/css'));
+			.pipe(gulp.dest(dest + '/css'))
+			.pipe(minifycss())
+			.pipe(gulp.dest(dest + '/css/min'));
 	});
 
 	// Processing app level JS
 	gulp.task('appJs', function(){
-		gulp.src([src + '/js/**/*.js', '!' + src + '/js/vendors/**/*.js'], {overwrite: true}) // all except vendor scripts
-			.pipe(uglify())
-			.pipe(gulp.dest(dest + '/js'));
+		return gulp.src([src + '/js/**/*.js', '!' + src + '/js/vendors/**/*.js'], {overwrite: true}) // all except vendor scripts
+				.pipe(uglify())
+				.pipe(gulp.dest(dest + '/js'));
 	});
 
 	// Images
 	gulp.task('imagemin', function () {
-		gulp.src(src + '/img/**/*')
-		.pipe(imagemin())
-		.pipe(gulp.dest(dest + '/img'));
+		return gulp.src(src + '/img/**/*')
+				.pipe(imagemin())
+				.pipe(gulp.dest(dest + '/img'));
 	});
 
 	// Stats and Things
@@ -113,7 +115,7 @@
 
 	gulp.task('default', ['appHtml', 'baseCss', 'appCss', 'appJs', 'imagemin', 'stats']);
 
-	gulp.task('watch', [], function() {
+	gulp.task('watch', ['default'], function() {
 
 		// watch for markup changes
 		gulp.watch(src + "/views/**/*.html", ["appHtml"]);
