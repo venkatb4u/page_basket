@@ -1,11 +1,15 @@
 
 main.home {
 	padding: 20px;
+	color: green;
 	margin: 30px auto;
 	width: 640px;
 	font-size: 16px;
 	border: 1px solid red;
 	background: snow;
+
+	background: linear-gradient(to top, black, white);
+  	border-radius: 3px;
 
 	/* partial style of page 1 */
 	@import "first/partial1";

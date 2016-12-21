@@ -1,5 +1,5 @@
-// Page_Basket  //
-//////////////////
+// FlyDubai - Gulp tasks //
+//////////////////////////
 
 // Gulp
 var gulp = require('gulp');
@@ -19,7 +19,7 @@ var del = require('del');
 
 // Sass/CSS stuff
 var sass = require('gulp-sass');
-var prefix = require('gulp-autoprefixer');
+var autoprefixer = require('gulp-autoprefixer');
 var minifycss = require('gulp-minify-css');
 
 // JavaScript
@@ -70,9 +70,10 @@ gulp.task('appCss', function (){
 			includePaths: [src + '/style'],
 			outputStyle: 'expanded'
 		}))
-		.pipe(prefix(
-			"last 1 version", "> 1%", "ie 8", "ie 7"
-			))
+		.pipe(autoprefixer({
+            browsers: ['last 2 versions', '> 1%', 'IE 10', 'IE 9', 'IE 8'],
+            cascade: false
+        }))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(dest + '/css'))
 		.pipe(minifycss())
