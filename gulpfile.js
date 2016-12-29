@@ -47,11 +47,11 @@ gulp.task('clean', function(done) {
 
 // Compiles hbs templates
 gulp.task('appHtml', function() {
-   gulp.src([src + '/views/*.html', '!' + src + '/views/partials/**/*.hbs'])
+   gulp.src([src + '/views/*.html', '!' + src + '/views/apps/**/*.hbs'])
 	  	.pipe(hbsAll('html', {
 		    context: {firstName: 'venkat'},
 		 
-		    partials: [src + '/views/partials/**/*.hbs'],
+		    partials: [src + '/views/apps/**/*.hbs'],
 		 
 		    helpers: {
 		      capitals : function(str) {
