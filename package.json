@@ -1,7 +1,7 @@
 {
   "name": "page_basket",
   "version": "1.0.0",
-  "description": "Webpage development kit -- AMD module based boilerplate",
+  "description": "FlyDubai holidays -- UI codebase",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,10 +10,10 @@
     "build": "gulp watch"
   },
   "repository": {
-    "url": "git@github.com:venkatb4u/page_basket.git",
+    "url": "git@gitlab.pramati.com:venkat.subramanian/page_basket.git",
     "type": "git"
   },
-  "author": "Venkat <venkat.crescentian@gmail.com>",
+  "author": "Venkat <venkat.subramanian@imaginea.com>",
   "license": "MIT",
   "dependencies": {
     "express": "^4.14.0",

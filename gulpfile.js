@@ -1,4 +1,4 @@
-// FlyDubai - Gulp tasks //
+// Gulp tasks //
 //////////////////////////
 
 // Gulp
@@ -11,8 +11,9 @@ var runSequence = require('run-sequence');
 // notify
 var notify = require('gulp-notify');
 
-// HbsAll
+// Hbs
 var hbsAll = require('gulp-handlebars-all');
+
 
 // delete
 var del = require('del');
@@ -45,13 +46,14 @@ gulp.task('clean', function(done) {
 // TASKS 
 //======
 
-// Compiles hbs templates
+// Compiles base HTMLs
 gulp.task('appHtml', function() {
-   gulp.src([src + '/views/*.html', '!' + src + '/views/apps/**/*.hbs'])
+   gulp.src([src + '/*.html', '!' + src + '/js/templates/**/*.hbs'])
 	  	.pipe(hbsAll('html', {
 		    context: {firstName: 'venkat'},
 		 
-		    partials: [src + '/views/apps/**/*.hbs'],
+		    // partials: [src + '/views/apps/**/*.hbs'],
+		    partials: [src + '/js/templates/**/*.hbs'],
 		 
 		    helpers: {
 		      capitals : function(str) {
@@ -61,6 +63,7 @@ gulp.task('appHtml', function() {
 		  }))
 	  	.pipe(gulp.dest(dest));
 });
+
 
 // compile all your app level Sass
 gulp.task('appCss', function (){
@@ -100,7 +103,12 @@ gulp.task('appJs', function(){
 			.pipe(sourcemaps.write())
 			.pipe(gulp.dest(dest + '/js/min'));
 });
-
+// Hbs templates
+gulp.task('templates', function(){
+	return gulp.src([src + '/js/templates/**/*.hbs'], {overwrite: true}) // all vendor scripts
+			.pipe(gulp.dest(dest + '/js/min/templates'))
+			.pipe(gulp.dest(dest + '/js/templates'));
+});
 // Vendor JS
 gulp.task('baseJs', function(){
 	return gulp.src([src + '/js/vendors/**/*.js'], {overwrite: true}) // all vendor scripts
@@ -125,7 +133,7 @@ gulp.task('stats', function () {
         }));
 });
 
-gulp.task('default', ['appHtml', 'baseCss', 'appCss', 'appJs','baseJs', 'imagemin'], function(callback) {
+gulp.task('default', ['appHtml', 'baseCss', 'appCss', 'appJs', 'templates', 'baseJs', 'imagemin'], function(callback) {
 	console.log('Computing total size of page resources:');
 	runSequence('stats', callback);
 });
@@ -133,12 +141,15 @@ gulp.task('default', ['appHtml', 'baseCss', 'appCss', 'appJs','baseJs', 'imagemi
 gulp.task('watch', ['default'], function() { // this does 'default' set once, and then begins to watch for changes
 
 	console.log('WATCHING for changes:');
-	// watch for markup changes
-	gulp.watch(src + "/views/**/*.html", ["appHtml"]);
+	// watch for markup & hbs changes
+	gulp.watch([src + "/views/**/*.html", "!" + src + "/js/templates/**/*.hbs"], ["appHtml"]);
+	gulp.watch([src + '/js/templates/**/*.hbs'], ["templates"]); 
+
 	// watch for style changes
 	gulp.watch(src + "/style/**/*.scss", ["appCss"]); // currently watching only app-level css. 
 	// watch for js changes
-	gulp.watch(src + "/js/**/*.js", ["appJs"]);
+	gulp.watch([src + "/js/**/*.js"], ["appJs"]);
+	
 	// watch for img minification
 	gulp.watch(src + "/img/**/*", ["imagemin"]);
 });
