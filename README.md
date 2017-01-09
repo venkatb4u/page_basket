@@ -14,8 +14,24 @@ This is to achieve maintaining a generic codebase throughout the development, fa
 * `Separation of concern` is the key that it holds throughout.
 * Maintainability -- stick to the flow and I tell you, you'll thank me later for the time you'd have saved in future.
 * `Microservice` way of codebase structuring. (Yes, definitely not the `monolithic` pattern)
-* Loading assets on demand -- reduced network loads -- quick page rendering. (Yes, AMD'ish way is also available)
+* Loading assets on demand -- reduced network loads -- quick page rendering. (Yes, AMD'ish way of loading modules)
 
-## Usage [yet to draft in detail]
 
-Just clone the repo and start developing the pages on top of this template, conforming to its practices/methodologies.
+
+## Tools Needed
+
+- Node
+- Yarn
+
+## Initial Setup
+
+- Clone the repo
+    `git clone git@github.com:venkatb4u/page_basket.git && cd page_basket`
+- Install dependencies
+    `yarn`
+- Run the node web server 
+    `yarn start` 
+  Note: App will now be running at `localhost:3000`
+- Trigger the Gulp tasks and watch for changes (in new terminal window)
+    `yarn run build` or `gulp watch`
+  Note: if needed for one time tasks trigger, use just `gulp`
