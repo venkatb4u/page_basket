@@ -1,0 +1,131 @@
+/* Mobile-First Styles */
+.roomPod {
+	padding: 30px;
+    border-radius: 5px;
+    font-size: 15px;
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fdffff;
+
+    &:before {
+    	top: -10px;
+	    border: 10px solid transparent;
+	    border-top: 0;
+	    border-bottom-color: #ccc;
+    }
+    &:after {
+    	bottom: auto;
+	    top: -9px;
+	    border: 10px solid transparent;
+	    border-top: 0;
+	    border-bottom-color: #fff;
+    }
+    &:before, &:after {
+    	content: "";
+	    display: inline-block;
+	    position: absolute;
+    }
+	& > .podRow {
+		&:not(:last-child) {
+			margin-bottom: 20px;	
+		}
+		& > p {
+			margin: 0 0 5px 0;
+		}
+		.del {
+			background: url(../img/delete.png) no-repeat;
+			width: 16px;
+			height: 16px;
+			float: right;
+			-webkit-appearance: none;
+			appearance: none;
+    		border: none;
+		}
+		& > div {
+			background: #ccc;
+			padding: 1rem;
+			& > input {
+				&:first-child {
+					margin-left: 0;
+					float: left;
+				}
+				float: right;
+				margin-left: 0.5rem;
+				max-width: 11rem;
+	    		padding: 0 1rem;
+	    	}
+	    	.ageWrap {
+				margin: 30px 0 0 0;
+				input {
+					padding: 0 0.5rem;
+				    max-width: 5.2rem;
+				    font-size: 12px;
+				    margin-right: 0.5rem;
+				}
+			}
+		}
+		
+	}
+
+	.addRoom {
+		overflow: auto;
+
+		.add {
+			width: 12rem;
+			height: 30px;
+			float: left;
+			-webkit-appearance: none;
+			appearance: none;
+    		border: 2px dotted #ccc;
+    		background: transparent;
+		}
+		.done {
+			width: 10rem;
+			height: 30px;
+			float: right;
+			-webkit-appearance: none;
+			appearance: none;
+    		border: 1px solid #333;
+    		background: #333;
+    		color: #fff;
+		}
+	}
+
+}
+
+/* Desktop RWD Styles */
+@include stylesFor(desktop) {
+	.roomPod {
+		padding: 15px;
+		margin: 40px auto;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    max-width: 300px;
+	    position: relative;
+
+	    &:before {
+	    	top: -10px;
+		    border: 10px solid transparent;
+		    border-top: 0;
+		    border-bottom-color: #ccc;
+	    }
+	    &:after {
+	    	bottom: auto;
+		    top: -9px;
+		    border: 10px solid transparent;
+		    border-top: 0;
+		    border-bottom-color: #fff;
+	    }
+	    &:before, &:after {
+	    	content: "";
+		    display: inline-block;
+		    position: absolute;
+	    }
+
+	}
+
+}
+

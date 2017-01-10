@@ -1,26 +1,11 @@
 
-main.home {
-	padding: 20px;
-	color: green;
-	margin: 30px auto;
-	width: 640px;
-	font-size: 16px;
-	border: 1px solid red;
-	background: snow;
+#homePage {
 
-	background: linear-gradient(to top, black, white);
-  	border-radius: 3px;
-
-	/* partial style of page 1 */
-	@import "first/partial1";
-
-	/* RWD styles for Tablets */
-	@include stylesFor('tablet') {
-		aside {
-			width: 600px;
-			height: 600px;
-			border: 5px dotted blue;
-		}
+	/*Page related styles*/
+	.setRooms {
+		@import '../apps/roomPod'; /*Room Pod*/
 	}
-	
+
 }
+
+
