@@ -5,7 +5,9 @@ require.config({
         handlebars: './vendors/handlebars-v4.0.5',
         bootstrap: './vendors/bootstrap-3.3.7.min',      
         globals:'globals',
-        text: './vendors/requireLibs/text-2.0.15'
+        templates: './templates',
+        apps: './apps',
+        text: './vendors/text-2.0.15'
     },
     shim: {
         jquery: {
