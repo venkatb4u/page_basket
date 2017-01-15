@@ -1,5 +1,5 @@
 // Gulp tasks //
-//////////////////////////
+///////////////
 
 // Gulp
 var gulp = require('gulp');
@@ -93,6 +93,11 @@ gulp.task('baseCss', function (){
 		.pipe(minifycss())
 		.pipe(gulp.dest(dest + '/css/min'));
 });
+// Fonts handler
+gulp.task('appFonts', function() {
+    return gulp.src([src + '/font/**/*.{eot,svg,ttf,woff,woff2}'])
+            .pipe(gulp.dest(dest + '/css/font/'));
+});
 
 // Processing app level JS
 gulp.task('appJs', function(){
@@ -133,7 +138,7 @@ gulp.task('stats', function () {
         }));
 });
 
-gulp.task('default', ['appHtml', 'baseCss', 'appCss', 'appJs', 'templates', 'baseJs', 'imagemin'], function(callback) {
+gulp.task('default', ['appHtml', 'baseCss', 'appCss', 'appFonts', 'appJs', 'templates', 'baseJs', 'imagemin'], function(callback) {
 	console.log('Computing total size of page resources:');
 	runSequence('stats', callback);
 });
