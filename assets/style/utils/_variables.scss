@@ -44,6 +44,8 @@ $dark: #333;
   @return $string;
 }
 
+/* Params syntax - ['font-name', 'path', 'bold/regular/light', 'italic', 'font-ext'] */
+/* e.g. @include font-face("TimesNewRom", font/TimesNewRom, null, null, ttf);*/
 @mixin font-face ($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
   $src: null;
 
