@@ -1,5 +1,5 @@
 // Gulp tasks //
-///////////////
+//////////////////////////
 
 // Gulp
 var gulp = require('gulp');
@@ -29,6 +29,8 @@ var uglify = require('gulp-uglify');
 // Images
 var imagemin = require('gulp-imagemin');
 
+var connect = require('gulp-connect');
+
 // Stats and Things
 var size = require('gulp-size');
 var config = require('./config/fd');
@@ -46,6 +48,15 @@ gulp.task('clean', function(done) {
 // TASKS 
 //======
 
+//Connection to server
+gulp.task('connect', function() {
+  connect.server({
+  	root: 'public',
+  	port: 8001,
+    livereload: true
+  });
+});
+
 // Compiles base HTMLs
 gulp.task('appHtml', function() {
    gulp.src([src + '/*.html', '!' + src + '/js/templates/**/*.hbs'])
@@ -61,7 +72,8 @@ gulp.task('appHtml', function() {
 		      }
 		    }
 		  }))
-	  	.pipe(gulp.dest(dest));
+	  	.pipe(gulp.dest(dest))
+	  	.pipe(connect.reload());
 });
 
 
@@ -80,7 +92,8 @@ gulp.task('appCss', function (){
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(dest + '/css'))
 		.pipe(minifycss())
-		.pipe(gulp.dest(dest + '/css/min'));
+		.pipe(gulp.dest(dest + '/css/min'))
+		.pipe(connect.reload());
 });
 
 // CSS vendor processing
@@ -91,12 +104,14 @@ gulp.task('baseCss', function (){
 		}))
 		.pipe(gulp.dest(dest + '/css'))
 		.pipe(minifycss())
-		.pipe(gulp.dest(dest + '/css/min'));
+		.pipe(gulp.dest(dest + '/css/min'))
+		.pipe(connect.reload());
 });
 // Fonts handler
 gulp.task('appFonts', function() {
     return gulp.src([src + '/font/**/*.{eot,svg,ttf,woff,woff2}'])
-            .pipe(gulp.dest(dest + '/css/font/'));
+            .pipe(gulp.dest(dest + '/css/font/'))
+            .pipe(connect.reload());
 });
 
 // Processing app level JS
@@ -106,25 +121,29 @@ gulp.task('appJs', function(){
 			.pipe(gulp.dest(dest + '/js'))
 			.pipe(uglify())
 			.pipe(sourcemaps.write())
-			.pipe(gulp.dest(dest + '/js/min'));
+			.pipe(gulp.dest(dest + '/js/min'))
+			.pipe(connect.reload());
 });
 // Hbs templates
 gulp.task('templates', function(){
 	return gulp.src([src + '/js/templates/**/*.hbs'], {overwrite: true}) // all vendor scripts
 			.pipe(gulp.dest(dest + '/js/min/templates'))
-			.pipe(gulp.dest(dest + '/js/templates'));
+			.pipe(gulp.dest(dest + '/js/templates'))
+			.pipe(connect.reload());
 });
 // Vendor JS
 gulp.task('baseJs', function(){
 	return gulp.src([src + '/js/vendors/**/*.js'], {overwrite: true}) // all vendor scripts
 			.pipe(gulp.dest(dest + '/js/min/vendors'))
-			.pipe(gulp.dest(dest + '/js/vendors'));
+			.pipe(gulp.dest(dest + '/js/vendors'))
+			.pipe(connect.reload());
 });
 // Images
 gulp.task('imagemin', function () {
 	return gulp.src(src + '/img/**/*')
 			.pipe(imagemin())
-			.pipe(gulp.dest(dest + '/img'));
+			.pipe(gulp.dest(dest + '/img'))
+			.pipe(connect.reload());
 });
 
 // Stats and Things
@@ -138,7 +157,7 @@ gulp.task('stats', function () {
         }));
 });
 
-gulp.task('default', ['appHtml', 'baseCss', 'appCss', 'appFonts', 'appJs', 'templates', 'baseJs', 'imagemin'], function(callback) {
+gulp.task('default', ['connect','appHtml', 'baseCss', 'appCss', 'appFonts', 'appJs', 'templates', 'baseJs', 'imagemin'], function(callback) {
 	console.log('Computing total size of page resources:');
 	runSequence('stats', callback);
 });
@@ -147,8 +166,8 @@ gulp.task('watch', ['default'], function() { // this does 'default' set once, an
 
 	console.log('WATCHING for changes:');
 	// watch for markup & hbs changes
-	gulp.watch([src + "/views/**/*.html", "!" + src + "/js/templates/**/*.hbs"], ["appHtml"]);
-	gulp.watch([src + '/js/templates/**/*.hbs'], ["templates"]); 
+	gulp.watch([src + "/*.html", "!" + src + "/js/templates/**/*.hbs"], ["appHtml"]);
+	gulp.watch([src + '/js/templates/**/*.hbs'], ["appHtml"]); 
 
 	// watch for style changes
 	gulp.watch(src + "/style/**/*.scss", ["appCss"]); // currently watching only app-level css. 
