@@ -1,9 +1,16 @@
 <div class="podRow" data-roomno={{roomNo}}>
 	<p for="">Room {{roomNo}} <button type="button" class="del"></button></p>
 	<div>
-		<input type="number" min="0" placeholder="0 Adult" data-type="adult" />
-		<input type="number" min="0" placeholder="0 Children" data-type="child" />
-
+		<div class="switch">
+			<a class="minus" href="javascript:void(0)" data-type="adult">-</a>
+			<span data-val="1">1 Adult</span>
+			<a class="plus" href="javascript:void(0)" data-type="adult">+</a>
+		</div>
+		<div class="switch">
+			<a class="minus" href="javascript:void(0)" data-type="child">-</a>
+			<span data-val="0">0 Child</span>
+			<a class="plus" href="javascript:void(0)" data-type="child">+</a>
+		</div>
 		<div class="ageWrap"></div>
 	</div>
 </div>
