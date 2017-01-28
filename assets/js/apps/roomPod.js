@@ -9,13 +9,15 @@ define([
     var handlers = new function () {
     	function add (e) {
     		var $target = $(this),
+                rows = pod.find('.podRow'),
     			data = {
-    				roomNo : ++pod.find('.podRow').length
+    				roomNo : ++rows.length
     			};
     		
     		// TODO: precompilation of handlebars is causing issues. Need to handle it.
 
     		var row = new Row(data);
+            rows.find('.del').prop('disabled', true);
     		row.dom.insertBefore(addRoom);
     	}
     	(add)(); // an explicit IIFE -- to have one default row on initialisation

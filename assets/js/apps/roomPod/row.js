@@ -12,10 +12,10 @@ define([
 			    		var $target = $(this),
 				    		row = $target.closest('.podRow'),
 				    		pod = $target.closest('.roomPod'),
+				    		rows = pod.find('.podRow'),
 				    		roomNo = row.data('roomno');
-				    	if(roomNo !== 1 && roomNo === pod.find('.podRow').length) {
-				    		row.remove();	
-				    	}
+				    	roomNo !== 1 && roomNo === rows.length && row.remove(); // always can delete only the last row
+				    	$('.del:disabled').last().prop('disabled', false); // enabling the last disabled item
 			    		
 			    	},
 			    	validate : function () { // TODO: based on validation requirement
